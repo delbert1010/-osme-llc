@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OSME LLC</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;}
+:root{--g:#3a8c1e;--gl:#5cb82e;--gd:#1f5010;--gray:#141414;}
+
+nav{background:#000;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--g);position:sticky;top:0;z-index:99;}
+.logo-text span:first-child{font-size:22px;font-weight:900;color:#fff;letter-spacing:2px;display:block;}
+.logo-text span:last-child{font-size:9px;color:var(--gl);letter-spacing:3px;text-transform:uppercase;}
+.nav-links a{color:#bbb;text-decoration:none;font-size:13px;margin-left:18px;}
+.nav-cta{background:var(--g);color:#fff!important;padding:8px 18px;border-radius:4px;font-weight:700;}
+
+.hero{background:#000;display:grid;grid-template-columns:1fr 1fr;min-height:460px;}
+.hero-left{padding:60px 5%;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#000 60%,#0d1f07);}
+.hero-badge{display:inline-block;background:var(--gd);border:1px solid var(--g);color:var(--gl);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:3px;margin-bottom:16px;width:fit-content;}
+.hero h1{font-size:38px;font-weight:900;line-height:1.15;margin-bottom:14px;}
+.hero h1 span{color:var(--gl);}
+.hero p{color:#999;font-size:14px;line-height:1.7;margin-bottom:26px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-g{background:var(--g);color:#fff;padding:13px 26px;border-radius:5px;font-weight:700;text-decoration:none;font-size:14px;}
+.btn-out{background:transparent;color:#fff;padding:13px 26px;border-radius:5px;font-weight:600;text-decoration:none;font-size:14px;border:1.5px solid #444;}
+.hero-stats{display:flex;gap:28px;margin-top:28px;}
+.stat-num{font-size:26px;font-weight:900;color:var(--gl);}
+.stat-label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;}
+.hero-right{position:relative;overflow:hidden;}
+.hero-right img{width:100%;height:100%;object-fit:cover;filter:brightness(.7);}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,#000 0%,transparent 40%);}
+
+.ribbon{background:var(--g);padding:12px 5%;display:flex;justify-content:center;gap:48px;flex-wrap:wrap;}
+.ribbon-item{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#fff;letter-spacing:.5px;}
+
+.section{padding:64px 5%;}
+.section-hd{text-align:center;margin-bottom:8px;font-size:28px;font-weight:800;}
+.section-sub{text-align:center;color:#777;font-size:13px;margin-bottom:40px;}
+.accent{color:var(--gl);}
+
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;}
+.svc-card{background:#111;border:1px solid #222;border-radius:10px;overflow:hidden;transition:border-color .2s,transform .2s;}
+.svc-card:hover{border-color:var(--g);transform:translateY(-3px);}
+.svc-img{width:100%;height:180px;object-fit:cover;display:block;background:#1a1a1a;}
+.svc-img-fallback{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:48px;}
+.svc-body{padding:16px;}
+.svc-body h3{font-size:14px;font-weight:700;margin-bottom:6px;color:#fff;}
+.svc-body p{font-size:12px;color:#888;line-height:1.55;}
+.svc-tag{display:inline-block;background:var(--gd);color:var(--gl);font-size:10px;padding:2px 8px;border-radius:3px;margin-top:8px;font-weight:600;}
+
+.why-bg{background:var(--gray);}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;}
+.why-card{background:#0d0d0d;border-left:3px solid var(--g);border-radius:6px;padding:20px 18px;}
+.why-card h3{font-size:15px;font-weight:700;margin-bottom:8px;}
+.why-card p{font-size:13px;color:#888;line-height:1.6;}
+
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:40px;}
+.gallery img{width:100%;height:200px;object-fit:cover;border-radius:6px;filter:brightness(.8);transition:filter .2s;}
+.gallery img:hover{filter:brightness(1);}
+.gal-fallback{width:100%;height:200px;background:#1a2a14;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:36px;}
+
+.cta-section{background:linear-gradient(135deg,#0d1f07,#000);padding:60px 5%;text-align:center;}
+.cta-section h2{font-size:30px;font-weight:900;margin-bottom:10px;}
+.cta-section p{color:#999;margin-bottom:20px;font-size:14px;}
+.cta-phone{font-size:38px;font-weight:900;color:var(--gl);display:block;margin-bottom:22px;}
+.badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
+.badge{background:#111;border:1px solid #2a2a2a;padding:6px 14px;border-radius:20px;font-size:12px;color:#ccc;}
+
+.contact-bar{background:#000;border-top:2px solid var(--g);padding:28px 5%;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;}
+.c-label{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.c-val{font-size:14px;font-weight:600;color:#fff;}
+.c-val.green{color:var(--gl);}
+
+footer{background:#000;padding:14px 5%;text-align:center;border-top:1px solid #151515;}
+footer p{font-size:12px;color:#444;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo-text">
+    <span>OSME LLC</span>
+    <span>Multi-Services & Cleaning</span>
+  </div>
+  <div class="nav-links">
+    <a href="#">Inicio</a>
+    <a href="#">Servicios</a>
+    <a href="#">Galería</a>
+    <a href="#">Contacto</a>
+    <a href="tel:2392857480" class="nav-cta">📞 Llamar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">📍 Lehigh Acres · Fort Myers · Cape Coral</div>
+    <h1>Un Solo Equipo,<br><span>Soluciones Completas</span></h1>
+    <p>Servicios profesionales de landscaping, limpieza, demolición, remoción y mudanzas en el suroeste de Florida.</p>
+    <div class="hero-btns">
+      <a href="tel:2392857480" class="btn-g">📞 239-285-7480</a>
+      <a href="https://wa.me/12392857480" class="btn-out">💬 WhatsApp</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">5+</div><div class="stat-label">Años activos</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-label">Garantizado</div></div>
+      <div><div class="stat-num">SW FL</div><div class="stat-label">Área de servicio</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&auto=format&fit=crop" alt="Landscaping profesional" onerror="this.style.display='none'">
+    <div class="hero-overlay"></div>
+  </div>
+</div>
+
+<!-- RIBBON -->
+<div class="ribbon">
+  <div class="ribbon-item">🛡️ CONFIANZA · RESULTADOS GARANTIZADOS</div>
+  <div class="ribbon-item">⚡ RAPIDEZ · SERVICIO EFICIENTE</div>
+  <div class="ribbon-item">🤝 COMPROMISO · TU SATISFACCIÓN ES NUESTRA PRIORIDAD</div>
+</div>
+
+<!-- SERVICIOS -->
+<div class="section">
+  <div class="section-hd">Nuestros <span class="accent">Servicios</span></div>
+  <div class="section-sub">Todo lo que necesitas — un solo equipo, soluciones completas</div>
+  <div class="svc-grid">
+
+    <div class="svc-card">
+      <img class="svc-img" src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%201.jpg" alt="Landscaping">
+      <div class="svc-body">
+        <h3>🌿 Landscaping</h3>
+        <p>Diseño, mantenimiento y embellecimiento de jardines, poda y cuidado de áreas verdes residenciales y comerciales.</p>
+        <span class="svc-tag">Residencial · Comercial</span>
+      </div>
+    </div>
+
+    <div class="svc-card">
+      <img class="svc-img" src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%207.jpg" alt="Remoción de escombros">
+      <div class="svc-body">
+        <h3>🗑️ Remoción de Escombros y Basura</h3>
+        <p>Retiro rápido de desechos, materiales de construcción y basura acumulada. Disponibilidad el mismo día.</p>
+        <span class="svc-tag">Mismo día disponible</span>
+      </div>
+    </div>
+
+    <div class="svc-card">
+      <img class="svc-img" src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%205.jpg" alt="Limpieza de propiedades">
+      <div class="svc-body">
+        <h3>🏠 Limpieza de Propiedades</h3>
+        <p>Limpieza profunda de casas, apartamentos y negocios. Especialistas en mudanza y cierre de propiedades.</p>
+        <span class="svc-tag">Move-out · Move-in</span>
+      </div>
+    </div>
+
+    <div class="svc-card">
+      <img class="svc-img" src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%204.jpg" alt="Demoliciones ligeras">
+      <div class="svc-body">
+        <h3>⚒️ Demoliciones Ligeras</h3>
+        <p>Demolición de estructuras menores, paredes interiores, decks y preparación para remodelaciones.</p>
+        <span class="svc-tag">Remodelación · Renovación</span>
+      </div>
+    </div>
+
+    <div class="svc-card">
+      <img class="svc-img" src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%203.jpg" alt="Mudanzas pequeñas">
+      <div class="svc-body">
+        <h3>🚛 Mudanzas Pequeñas</h3>
+        <p>Transporte y carga de muebles y pertenencias con cuidado y puntualidad. Servicio local en SW Florida.</p>
+        <span class="svc-tag">Local · SW Florida</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- GALERÍA -->
+<div class="section why-bg">
+  <div class="section-hd">Nuestro <span class="accent">Trabajo</span></div>
+  <div class="section-sub">Fotos reales de proyectos completados</div>
+  <div class="gallery">
+    <img src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%201.jpg" alt="Landscaping jardín">
+    <img src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%209.jpg" alt="Jardín nocturno">
+    <img src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%207.jpg" alt="Remoción basura">
+    <img src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%208.jpg.png" alt="Escombros">
+    <img src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%205.jpg" alt="Limpieza exterior">
+    <img src="https://raw.githubusercontent.com/delbert1010/-osme-llc/main/IMAGEN%206.jpg" alt="Limpieza interior">
+  </div>
+</div>
+
+<!-- POR QUÉ ELEGIRNOS -->
+<div class="section">
+  <div class="section-hd">¿Por qué <span class="accent">elegirnos?</span></div>
+  <div class="section-sub">Llevamos resultados, no excusas</div>
+  <div class="why-grid">
+    <div class="why-card">
+      <h3>🛡️ Confianza</h3>
+      <p>Empresa registrada en Florida. Resultados garantizados en cada trabajo que tomamos.</p>
+    </div>
+    <div class="why-card">
+      <h3>⚡ Rapidez</h3>
+      <p>Respondemos rápido, llegamos a tiempo y terminamos el trabajo cuando prometemos.</p>
+    </div>
+    <div class="why-card">
+      <h3>🤝 Compromiso</h3>
+      <p>Tu satisfacción es nuestra prioridad. No cerramos el trabajo hasta que estés contento.</p>
+    </div>
+    <div class="why-card">
+      <h3>💬 Español & English</h3>
+      <p>Atendemos a la comunidad hispana y angloparlante del suroeste de Florida.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>¿Listo para tu <span class="accent">estimado gratis?</span></h2>
+  <p>Llámanos o escríbenos por WhatsApp. Respondemos rápido.</p>
+  <span class="cta-phone">📞 239-285-7480</span>
+  <div class="badges">
+    <span class="badge">✅ Estimados Gratuitos</span>
+    <span class="badge">✅ Sin Compromiso</span>
+    <span class="badge">✅ Respuesta Rápida</span>
+    <span class="badge">✅ Empresa Registrada FL</span>
+  </div>
+  <a href="https://wa.me/12392857480" class="btn-g" style="font-size:15px;padding:15px 34px;">💬 Escribir por WhatsApp</a>
+</div>
+
+<!-- CONTACT BAR -->
+<div class="contact-bar">
+  <div><div class="c-label">Teléfono</div><div class="c-val green">239-285-7480</div></div>
+  <div><div class="c-label">Correo</div><div class="c-val">osmemultiservices@gmail.com</div></div>
+  <div><div class="c-label">Dirección</div><div class="c-val">1301 Unice Ave N, Lehigh Acres FL 33971</div></div>
+  <div><div class="c-label">Área de Servicio</div><div class="c-val">SW Florida</div></div>
+</div>
+
+<footer>
+  <p>© 2025 OSME LLC Multi-Services and Cleaning · Lehigh Acres, Florida · Todos los derechos reservados</p>
+</footer>
+
+</body>
+</html>
