@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<
+</html><!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -65,6 +66,8 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;padding:16p
 .pin-msg.ok{color:var(--gl);}.pin-msg.err{color:#e24b4a;}
 .save-btn{width:100%;padding:13px;background:var(--g);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;}
 .saved-ok{text-align:center;font-size:13px;color:var(--gl);margin-top:10px;display:none;}
+.clrbtn{width:100%;padding:11px;background:transparent;color:#888;border:1px solid var(--border);border-radius:8px;font-size:14px;cursor:pointer;margin-top:10px;}
+.clrbtn:active{background:var(--bg2);}
 .footer-brand{text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:#333;letter-spacing:.5px;}
 </style>
 </head>
@@ -114,7 +117,8 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;padding:16p
     <div class="rlabel">Estimado total</div>
     <div class="rmain" id="l-tot"></div>
     <div class="bk" id="l-bk"></div>
-    <div class="note">ℹ️ Precios basados en mercado Fort Myers / Lehigh Acres 2025.</div>
+    <button class="clrbtn" onclick="clearLand()">🗑️ Borrar estimado</button>
+    <div class="note">ℹ️ Precios basados en mercado Fort Myers / Lehigh Acres 2026.</div>
   </div>
 </div>
 <div id="tab-demo" class="sec">
@@ -150,7 +154,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;padding:16p
     <div class="rlabel">Estimado total</div>
     <div class="rmain" id="d-tot"></div>
     <div class="bk" id="d-bk"></div>
-    <div class="note">ℹ️ Precios basados en mercado Fort Myers 2025. Incluye labor y equipo básico.</div>
+    <div class="note">ℹ️ Precios basados en mercado Fort Myers 2026. Incluye labor y equipo básico.</div>
   </div>
 </div>
 <div class="footer-brand">OSME Multi-Services &amp; Cleaning LLC &nbsp;·&nbsp; Uso interno</div>
@@ -226,6 +230,31 @@ function toggleDemo(){const t=document.getElementById('d-type').value;document.g
 function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
 function calcLand(){const svc=document.getElementById('l-svc').value;const cond=parseFloat(document.getElementById('l-cond').value);const condLbl=cond===1.3?'+30% condición':cond===1.2?'+20% dificultad':null;let base=0,rows=[];if(svc==='hourly'){const h=parseFloat(document.getElementById('l-h').value)||0;if(!h){alert('Ingresa las horas');return;}base=h*P.hour;rows.push([h+' horas × $'+P.hour+'/hr',fmt(base)]);}else{const l=parseFloat(document.getElementById('l-largo').value)||0;const a=parseFloat(document.getElementById('l-ancho').value)||0;const sqft=l*a;if(!sqft){alert('Ingresa las medidas del área');return;}const acre=sqft/43560;rows.push(['Área: '+Math.round(sqft).toLocaleString()+' ft²','']);if(svc==='mow'){base=acre<=0.125?P.mow1:acre<=0.25?P.mow2:acre<=0.5?P.mow3:acre<=0.75?P.mow4:P.mow5;rows.push(['Corte base',fmt(base)]);}else if(svc==='cleanup'){base=sqft*P.cleanup;rows.push(['ft² × $'+P.cleanup,fmt(base)]);if(base<P.lmin){base=P.lmin;rows.push(['Mínimo cobro',fmt(base)]);}}else if(svc==='sod'){base=sqft*P.sod;rows.push(['ft² × $'+P.sod+'/ft²',fmt(base)]);}else if(svc==='beds'){base=sqft*P.beds;rows.push(['ft² × $'+P.beds+'/ft²',fmt(base)]);}}if(cond>1){const e=base*(cond-1);rows.push([condLbl,'+'+fmt(e)]);base*=cond;}const low=Math.round(base*0.9),high=Math.round(base*1.1);document.getElementById('l-tot').textContent=fmt(low)+' – '+fmt(high);let html=rows.map(r=>`<div class="bkr"><span>${r[0]}</span><span>${r[1]}</span></div>`).join('');html+=`<div class="bkr" style="margin-top:8px;border-top:1px solid #1a1a1a;padding-top:8px;font-weight:700;"><span>Rango sugerido</span><span style="color:#5cb82e;">${fmt(low)} – ${fmt(high)}</span></div>`;document.getElementById('l-bk').innerHTML=html;document.getElementById('l-res').classList.add('on');}
 function calcDemo(){const type=document.getElementById('d-type').value;const disp=document.getElementById('d-disp').value;const cplx=parseFloat(document.getElementById('d-cplx').value);let base=0,rows=[];if(type==='wall'){const w=parseFloat(document.getElementById('d-w').value)||0;if(!w){alert('Ingresa el número de paredes');return;}base=w*P.wall;rows.push([w+' pared(es) × $'+P.wall,fmt(base)]);}else{const l=parseFloat(document.getElementById('d-l').value)||0;const a=parseFloat(document.getElementById('d-a').value)||0;const sqft=l*a;if(!sqft){alert('Ingresa las medidas');return;}const rate=type==='interior'?P.int:type==='deck'?P.deck:type==='shed'?P.shed:P.conc;base=sqft*rate;rows.push([Math.round(sqft).toLocaleString()+' ft² × $'+rate+'/ft²',fmt(base)]);if(disp==='yes'){const d=sqft*P.disp;rows.push(['Disposal de escombros',fmt(d)]);base+=d;}}if(cplx>1){const e=base*(cplx-1);rows.push(['+40% complejidad','+'+fmt(e)]);base*=cplx;}if(base<P.dmin){rows.push(['Mínimo por trabajo',fmt(P.dmin)]);base=P.dmin;}const low=Math.round(base*0.9),high=Math.round(base*1.1);document.getElementById('d-tot').textContent=fmt(low)+' – '+fmt(high);let html=rows.map(r=>`<div class="bkr"><span>${r[0]}</span><span>${r[1]}</span></div>`).join('');html+=`<div class="bkr" style="margin-top:8px;border-top:1px solid #1a1a1a;padding-top:8px;font-weight:700;"><span>Rango sugerido</span><span style="color:#5cb82e;">${fmt(low)} – ${fmt(high)}</span></div>`;document.getElementById('d-bk').innerHTML=html;document.getElementById('d-res').classList.add('on');}
+function clearLand(){
+  document.getElementById('l-largo').value='';
+  document.getElementById('l-ancho').value='';
+  document.getElementById('l-h').value='';
+  document.getElementById('l-svc').value='mow';
+  document.getElementById('l-cond').value='1';
+  toggleLand();
+  const r=document.getElementById('l-res');
+  r.classList.remove('on');
+  document.getElementById('l-bk').innerHTML='';
+  document.getElementById('l-tot').textContent='';
+}
+function clearDemo(){
+  document.getElementById('d-l').value='';
+  document.getElementById('d-a').value='';
+  document.getElementById('d-w').value='';
+  document.getElementById('d-type').value='interior';
+  document.getElementById('d-disp').value='yes';
+  document.getElementById('d-cplx').value='1';
+  toggleDemo();
+  const r=document.getElementById('d-res');
+  r.classList.remove('on');
+  document.getElementById('d-bk').innerHTML='';
+  document.getElementById('d-tot').textContent='';
+}
 </script>
 </body>
 </html>
